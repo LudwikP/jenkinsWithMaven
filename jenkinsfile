@@ -1,0 +1,26 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('compile') {
+            agent {
+                docker {
+                    image '3.9.6-eclipse-temurin-11-alpine'
+                    reuseNode true
+                }
+            }
+
+            steps {
+            echo 'compiling'
+            sh '''
+            mvn clean compile
+            ls > test.txt
+            test -f "target/classes/org/example/Main.class"
+            grep "Main" test.txt
+            grep "world" target/classes/org/example/Main.class
+            '''
+            }
+        }
+    }
+}
+
