@@ -16,7 +16,7 @@ pipeline {
             mvn clean compile
             ls > test.txt
             test -f "target/classes/org/example/Main.class"
-            grep "Main" test.txt
+            grep "target" test.txt
             grep "world" target/classes/org/example/Main.class
             '''
             }
