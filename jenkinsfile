@@ -17,7 +17,7 @@ pipeline {
             ls > test.txt
             test -f "target/classes/org/example/Main.class"
             grep "target" test.txt
-            grep "world" target/classes/org/example/Main.class
+            grep "Hello world!" target/classes/org/example/Main.class
             '''
             }
         }
