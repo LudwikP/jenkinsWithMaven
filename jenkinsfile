@@ -53,7 +53,7 @@ pipeline {
                 steps {
                     echo 'running'
                     sh '''
-                    java -jar target/jenkins-with-maven.jar > test.txt
+                    java -jar target/jenkinsWithMaven-1.0-SNAPSHOT.jar > test.txt
                     grep 'Hello world' test.txt
                     '''
                 }
