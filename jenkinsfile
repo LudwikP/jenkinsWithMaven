@@ -37,7 +37,7 @@ pipeline {
                     sh '''
                     mvn package
                     ls > test.txt
-                    test -f "target/jenkins-with-maven.jar"
+                    test -f "target/jenkinsWithMaven-1.0-SNAPSHOT.jar"
                     '''
             }
         }
@@ -53,7 +53,7 @@ pipeline {
                 steps {
                     echo 'running'
                     sh '''
-                    java -jar jenkins-with-maven.jar > test.txt
+                    java -jar target/jenkins-with-maven.jar > test.txt
                     grep 'Hello world' test.txt
                     '''
                 }
