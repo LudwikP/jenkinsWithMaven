@@ -20,7 +20,44 @@ pipeline {
             grep "Hello world!" target/classes/org/example/Main.class
             '''
             }
+
+
         }
+
+        stage('building') {
+            agent {
+                docker {
+                    image 'maven:3.9.6-eclipse-temurin-11-alpine'
+                    reuseNode true
+                }
+            }
+
+            steps {
+                echo 'building'
+                    sh '''
+                    mvn package
+                    ls > test.txt
+                    test -f "target/jenkins-with-maven.jar"
+                    '''
+            }
+        }
+
+        stage('running') {
+            agent {
+                docker {
+                    image 'maven:3.9.6-eclipse-temurin-11-alpine'
+                    reuseNode true
+                    }
+                }
+
+                steps {
+                    echo 'running'
+                    sh '''
+                    java -jar jenkins-with-maven.jar > test.txt
+                    grep 'Hello world' test.txt
+                    '''
+                }
+            }
     }
 }
 
